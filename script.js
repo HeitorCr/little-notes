@@ -72,24 +72,34 @@ async function fetchNotes() {
     container.innerHTML = '';
     
     data.forEach(note => {
-        const div = document.createElement('div');
-        div.style.setProperty('--rotation', `${note.rotation}deg`);
-        div.className = `note-card p-8 relative group bg-note-${note.color} rounded-sm`;
-        div.style.transform = `rotate(${note.rotation}deg)`;
+        // Criamos o elemento primeiro para poder configurar as propriedades
+        const noteDiv = document.createElement('div');
         
-        div.innerHTML = `
-            <div class="font-hand text-3xl h-full overflow-y-auto pr-2 custom-scrollbar">
+        // Configuração visual
+        noteDiv.style.setProperty('--rotation', `${note.rotation}deg`);
+        noteDiv.style.transform = `rotate(${note.rotation}deg)`;
+        noteDiv.className = `note-card p-8 relative group bg-note-${note.color} rounded-sm shadow-lg`;
+        
+        // Conteúdo da nota
+        noteDiv.innerHTML = `
+            <div class="font-hand text-3xl h-full overflow-y-auto pr-2">
                 ${note.text}
             </div>
-            <div class="flex justify-between items-center mt-4 pt-2 border-t border-black/5 opacity-60">
-                <span class="text-xs font-bold uppercase tracking-widest">${note.date}</span>
-                <button onclick="deleteNote(${note.id})" class="text-rose-500 hover:scale-125 transition-transform">
-                    <i data-lucide="trash-2" class="w-5 h-5"></i>
-                </button>
+            <div class="flex justify-between items-end mt-4 pt-2 border-t border-black/10">
+                <span class="text-[10px] uppercase opacity-50 font-bold">${note.date}</span>
+                <div class="flex flex-col items-end">
+                    <span class="font-hand text-2xl text-rose-600">De: ${note.sender || 'Amor'}</span>
+                    <button onclick="deleteNote(${note.id})" class="text-rose-500 hover:scale-125 transition-transform mt-1">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                </div>
             </div>
         `;
-        container.appendChild(div);
+        
+        container.appendChild(noteDiv);
     });
+    
+    // Recarrega os ícones da biblioteca Lucide
     lucide.createIcons();
 }
 
