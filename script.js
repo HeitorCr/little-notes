@@ -20,23 +20,44 @@ document.querySelectorAll('#colorPicker button').forEach(btn => {
 async function sendNote() {
     const input = document.getElementById('noteInput');
     const text = input.value.trim();
+    // Captura qual rádio está marcado
+    const sender = document.querySelector('input[name="sender"]:checked').value;
+    
     if(!text) return;
     
     const { error } = await _supabase.from('little-notes').insert([{
         text: text,
         color: selectedColor,
+        sender: sender, // Salvando o nome
         rotation: Math.random() * 8 - 4,
         date: new Date().toLocaleDateString('pt-BR')
     }]);
 
     if(error) {
-        console.error("Erro ao salvar:", error);
-        alert("Ops! Ocorreu um erro ao salvar seu carinho.");
+        console.error(error);
+        alert("Erro ao salvar!");
     } else {
         input.value = '';
         fetchNotes();
     }
 }
+
+// E mude a parte do fetchNotes onde o HTML da nota é gerado:
+// Procure o div.innerHTML dentro do data.forEach:
+div.innerHTML = `
+    <div class="font-hand text-3xl h-full overflow-y-auto pr-2 custom-scrollbar">
+        ${note.text}
+    </div>
+    <div class="flex justify-between items-end mt-4 pt-2 border-t border-black/5">
+        <span class="text-[10px] uppercase opacity-50 font-bold">${note.date}</span>
+        <div class="flex flex-col items-end">
+            <span class="sender-tag font-hand text-xl">De: ${note.sender || 'Anônimo'}</span>
+            <button onclick="deleteNote(${note.id})" class="text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </div>
+`;
 
 // Buscar Notas
 async function fetchNotes() {
