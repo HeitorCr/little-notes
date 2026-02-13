@@ -25,31 +25,35 @@
         <div class="max-w-xl mx-auto mb-12">
             <div class="bg-white/80 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-rose-100">
                 <textarea id="noteInput" class="w-full h-24 p-2 font-hand text-2xl border-none focus:ring-0 bg-transparent text-slate-700" placeholder="Escreva um carinho..."></textarea>
-                    <div class="space-y-4">
-                        <div class="flex gap-4 items-center justify-center font-bold text-rose-600 mb-2">
-                            <label class="flex items-center gap-2 cursor-pointer hover:scale-105 transition">
-                                <input type="radio" name="sender" value="Heitor" checked class="accent-rose-500 w-4 h-4"> Heitor
-                            </label>
-                            <label class="flex items-center gap-2 cursor-pointer hover:scale-105 transition">
-                                <input type="radio" name="sender" value="Aline" class="accent-rose-500 w-4 h-4"> Aline
-                            </label>
-                        </div>
-                    
-                        <div class="flex justify-between items-center">
-                            <div id="colorPicker" class="flex gap-2 flex-wrap max-w-[180px]">
-                                <button class="w-6 h-6 rounded-full bg-[#fef3c7] border-2 border-slate-400" data-color="yellow"></button>
-                                <button class="w-6 h-6 rounded-full bg-[#ffedd5]" data-color="orange"></button>
-                                <button class="w-6 h-6 rounded-full bg-[#fee2e2]" data-color="red"></button>
-                                <button class="w-6 h-6 rounded-full bg-[#fce7f3]" data-color="pink"></button>
-                                <button class="w-6 h-6 rounded-full bg-[#e0f2fe]" data-color="blue"></button>
-                                <button class="w-6 h-6 rounded-full bg-[#f0fdf4]" data-color="green"></button>
-                                <button class="w-6 h-6 rounded-full bg-[#faf5ff]" data-color="purple"></button>
-                            </div>
-                            <button onclick="sendNote()" class="bg-rose-500 hover:bg-rose-600 text-white px-6 py-2 rounded-full font-bold shadow-md transition-all active:scale-95">
-                                Colar 📌
-                            </button>
-                        </div>
+                   <div class="space-y-4">
+                    <div class="flex gap-6 items-center justify-center font-bold text-rose-600 mb-2">
+                        <label class="flex items-center gap-2 cursor-pointer hover:scale-105 transition">
+                            <input type="radio" name="sender" value="Heitor" checked class="accent-rose-500 w-4 h-4"> Heitor
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:scale-105 transition">
+                            <input type="radio" name="sender" value="Aline" class="accent-rose-500 w-4 h-4"> Aline
+                        </label>
                     </div>
+                
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div id="colorPicker" class="grid grid-cols-5 gap-2">
+                            <button class="w-6 h-6 rounded-full bg-[#fef3c7] border-2 border-slate-400" data-color="yellow"></button>
+                            <button class="w-6 h-6 rounded-full bg-[#ffedd5]" data-color="orange"></button>
+                            <button class="w-6 h-6 rounded-full bg-[#fee2e2]" data-color="red"></button>
+                            <button class="w-6 h-6 rounded-full bg-[#fce7f3]" data-color="pink"></button>
+                            <button class="w-6 h-6 rounded-full bg-[#e0f2fe]" data-color="blue"></button>
+                            <button class="w-6 h-6 rounded-full bg-[#f0fdf4]" data-color="green"></button>
+                            <button class="w-6 h-6 rounded-full bg-[#faf5ff]" data-color="purple"></button>
+                            <button class="w-6 h-6 rounded-full bg-[#f1f5f9]" data-color="slate"></button>
+                            <button class="w-6 h-6 rounded-full bg-[#fef2f2]" data-color="rose"></button>
+                            <button class="w-6 h-6 rounded-full bg-[#fffbeb]" data-color="amber"></button>
+                        </div>
+                        
+                        <button onclick="sendNote()" class="bg-rose-500 hover:bg-rose-600 text-white px-8 py-2 rounded-full font-bold shadow-md transition-all active:scale-95 whitespace-nowrap">
+                            Colar 📌
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
