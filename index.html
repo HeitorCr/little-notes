@@ -63,7 +63,7 @@
             const text = document.getElementById('noteInput').value;
             if(!text.trim()) return;
             
-            await supabase.from('recados').insert([{
+            await supabase.from('little-notes').insert([{
                 text: text,
                 color: selectedColor,
                 rotation: Math.random() * 6 - 3,
@@ -76,7 +76,7 @@
 
         // Buscar Notas
         async function fetchNotes() {
-            const { data } = await supabase.from('recados').select('*').order('id', { ascending: false });
+            const { data } = await supabase.from('little-notes').select('*').order('id', { ascending: false });
             const container = document.getElementById('notesContainer');
             container.innerHTML = '';
             
@@ -95,7 +95,7 @@
 
         async function deleteNote(id) {
             if(confirm("Apagar?")) {
-                await supabase.from('recados').delete().eq('id', id);
+                await supabase.from('little-notes').delete().eq('id', id);
                 fetchNotes();
             }
         }
