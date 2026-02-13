@@ -42,9 +42,10 @@
 
     <script>
         // CONFIGURAÇÃO SUPABASE
+        const { createClient } = supabase; // Isso extrai a função da biblioteca que carregamos no cabeçalho
         const SUPABASE_URL = 'https://wjfcwtmqtfoldlsgabnu.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndqZmN3dG1xdGZvbGRsc2dhYm51Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5OTUzMDMsImV4cCI6MjA4NjU3MTMwM30.2eqwNNR6sNq4lxQYN28yLAh_C8nQQZ9P2IqKAZmUDtA';
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+       const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
         let selectedColor = 'yellow';
 
