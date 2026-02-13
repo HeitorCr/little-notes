@@ -3,106 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosso Mural ❤️</title>
+    <title>Nosso Cantinho ❤️</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        body { font-family: 'Quicksand', sans-serif; background-color: #fff5f5; background-image: radial-gradient(#fecdd3 0.5px, transparent 0.5px); background-size: 20px 20px; }
-        .font-hand { font-family: 'Caveat', cursive; }
-        .note-card { animation: popIn 0.4s ease-out; transition: all 0.3s ease; }
-        @keyframes popIn { 0% { opacity: 0; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1); } }
-        .bg-note-yellow { background-color: #fef3c7; } .bg-note-orange { background-color: #ffedd5; }
-        .bg-note-red { background-color: #fee2e2; } .bg-note-pink { background-color: #fce7f3; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="pb-20">
+<body class="min-h-screen flex flex-col">
 
-    <header class="text-center pt-10 pb-6">
-        <h1 class="font-hand text-6xl text-rose-500 font-bold">Nosso Cantinho</h1>
-    </header>
-
-    <div class="max-w-md mx-auto px-4 mb-10">
-        <div class="bg-white p-5 rounded-3xl shadow-lg border border-rose-100">
-            <textarea id="noteInput" class="w-full h-20 p-3 font-hand text-2xl border-none focus:ring-0" placeholder="Escreva algo..."></textarea>
-            <div class="flex justify-between items-center mt-3">
-                <div id="colorPicker" class="flex gap-2">
-                    <button class="w-6 h-6 rounded-full bg-[#fef3c7] border-2 border-slate-400" data-color="yellow"></button>
-                    <button class="w-6 h-6 rounded-full bg-[#ffedd5]" data-color="orange"></button>
-                    <button class="w-6 h-6 rounded-full bg-[#fee2e2]" data-color="red"></button>
-                    <button class="w-6 h-6 rounded-full bg-[#fce7f3]" data-color="pink"></button>
-                </div>
-                <button onclick="sendNote()" class="bg-rose-500 text-white px-6 py-2 rounded-full font-bold shadow-md">Colar</button>
-            </div>
-        </div>
+    <div class="floating-elements">
+        <span>🌸</span><span>❤️</span><span>✨</span><span>🌸</span><span>❤️</span>
     </div>
 
-    <div id="notesContainer" class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6"></div>
+    <header class="text-center pt-8 pb-4">
+        <h1 class="font-hand text-5xl md:text-7xl text-rose-500 font-bold drop-shadow-sm">Nosso Cantinho</h1>
+        <p class="text-rose-400 font-medium italic">Feito com amor para nós dois</p>
+    </header>
 
-    <script>
-        // CONFIGURAÇÃO SUPABASE
-        const { createClient } = supabase; // Isso extrai a função da biblioteca que carregamos no cabeçalho
-        const SUPABASE_URL = 'https://wjfcwtmqtfoldlsgabnu.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndqZmN3dG1xdGZvbGRsc2dhYm51Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5OTUzMDMsImV4cCI6MjA4NjU3MTMwM30.2eqwNNR6sNq4lxQYN28yLAh_C8nQQZ9P2IqKAZmUDtA';
-       const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    <main class="flex-grow container mx-auto px-4">
+        <div class="max-w-xl mx-auto mb-12">
+            <div class="bg-white/80 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-rose-100">
+                <textarea id="noteInput" class="w-full h-24 p-2 font-hand text-2xl border-none focus:ring-0 bg-transparent text-slate-700" placeholder="Escreva um carinho..."></textarea>
+                <div class="flex justify-between items-center mt-4">
+                    <div id="colorPicker" class="flex gap-3">
+                        <button class="w-8 h-8 rounded-full bg-[#fef3c7] border-2 border-slate-400 transition-transform hover:scale-110" data-color="yellow"></button>
+                        <button class="w-8 h-8 rounded-full bg-[#ffedd5] transition-transform hover:scale-110" data-color="orange"></button>
+                        <button class="w-8 h-8 rounded-full bg-[#fee2e2] transition-transform hover:scale-110" data-color="red"></button>
+                        <button class="w-8 h-8 rounded-full bg-[#fce7f3] transition-transform hover:scale-110" data-color="pink"></button>
+                    </div>
+                    <button onclick="sendNote()" class="bg-rose-500 hover:bg-rose-600 text-white px-8 py-3 rounded-full font-bold shadow-lg transition-all active:scale-95 flex items-center gap-2">
+                        Colar <i data-lucide="heart" class="w-4 h-4 fill-white"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
 
-        let selectedColor = 'yellow';
+        <div id="notesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 pb-20">
+            </div>
+    </main>
 
-        // Lógica de cores
-        document.querySelectorAll('#colorPicker button').forEach(btn => {
-            btn.onclick = () => {
-                document.querySelectorAll('#colorPicker button').forEach(b => b.classList.remove('border-2', 'border-slate-400'));
-                btn.classList.add('border-2', 'border-slate-400');
-                selectedColor = btn.dataset.color;
-            }
-        });
-
-        // Enviar Nota
-        async function sendNote() {
-            const text = document.getElementById('noteInput').value;
-            if(!text.trim()) return;
-            
-            await supabase.from('little-notes').insert([{
-                text: text,
-                color: selectedColor,
-                rotation: Math.random() * 6 - 3,
-                date: new Date().toLocaleDateString('pt-BR')
-            }]);
-            
-            document.getElementById('noteInput').value = '';
-            fetchNotes();
-        }
-
-        // Buscar Notas
-        async function fetchNotes() {
-            const { data } = await supabase.from('little-notes').select('*').order('id', { ascending: false });
-            const container = document.getElementById('notesContainer');
-            container.innerHTML = '';
-            
-            data.forEach(note => {
-                const div = document.createElement('div');
-                div.className = `note-card p-6 h-60 relative group bg-note-${note.color} shadow-md`;
-                div.style.transform = `rotate(${note.rotation}deg)`;
-                div.innerHTML = `
-                    <div class="font-hand text-2xl h-full overflow-y-auto">${note.text}</div>
-                    <button onclick="deleteNote(${note.id})" class="absolute bottom-2 right-2 text-rose-400 opacity-0 group-hover:opacity-100 transition"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-                `;
-                container.appendChild(div);
-            });
-            lucide.createIcons();
-        }
-
-        async function deleteNote(id) {
-            if(confirm("Apagar?")) {
-                await supabase.from('little-notes').delete().eq('id', id);
-                fetchNotes();
-            }
-        }
-
-        // Carregar ao abrir e atualizar a cada 5 segundos (simulando tempo real simples)
-        fetchNotes();
-        setInterval(fetchNotes, 5000);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
