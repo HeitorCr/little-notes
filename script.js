@@ -154,8 +154,47 @@ async function fetchNotes() {
 
 async function deleteNote(id) {
     if(confirm("Deseja apagar esse recadinho? 🥺")) {
-        await _supabase.from('little-notes').delete().eq('id', id);
-        fetchNotes();
+        try {
+            // 1. Buscar a nota para verificar se ela tem uma imagem
+            const { data: note, error: fetchError } = await _supabase
+                .from('little-notes')
+                .select('image_url')
+                .eq('id', id)
+                .single();
+
+            if (fetchError) throw fetchError;
+
+            // 2. Se existir uma imagem, apagar do Storage primeiro
+            if (note && note.image_url) {
+                // Extrair o nome do arquivo da URL pública
+                // A URL costuma ser: .../storage/v1/object/public/notes-images/NOME_DO_ARQUIVO.jpg
+                const urlParts = note.image_url.split('/');
+                const fileName = urlParts[urlParts.length - 1];
+
+                const { error: storageError } = await _supabase.storage
+                    .from('notes-images')
+                    .remove([fileName]);
+
+                if (storageError) {
+                    console.warn("Aviso: Erro ao apagar imagem do storage, mas prosseguindo com a nota:", storageError);
+                }
+            }
+
+            // 3. Apagar a nota do banco de dados
+            const { error: deleteError } = await _supabase
+                .from('little-notes')
+                .delete()
+                .eq('id', id);
+
+            if (deleteError) throw deleteError;
+
+            // 4. Atualizar a tela
+            fetchNotes();
+
+        } catch (error) {
+            console.error("Erro ao deletar:", error);
+            alert("Houve um erro ao tentar apagar o recado.");
+        }
     }
 }
 
