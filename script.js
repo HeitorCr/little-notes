@@ -124,8 +124,31 @@ async function fetchNotes() {
         
         // HTML da Nota com verificação de Imagem
         const imageHtml = note.image_url 
-            ? `<div class="mb-3 -mx-2"><img src="${note.image_url}" class="w-full h-40 object-cover rounded-md border-4 border-white shadow-sm transform rotate-1"></div>` 
+            ? `<div class="mb-3 -mx-2 bg-black/5 rounded-md overflow-hidden flex items-center justify-center" style="height: 180px;">
+                <img src="${note.image_url}" 
+                     class="max-w-full max-h-full object-contain shadow-sm transform rotate-1 transition-transform hover:rotate-0" 
+                     style="display: block;">
+               </div>` 
             : '';
+        
+        noteDiv.innerHTML = `
+            <div class="h-full flex flex-col">
+                ${imageHtml}
+                <div class="font-hand text-3xl overflow-y-auto custom-scroll pr-1 flex-grow break-words leading-tight text-slate-800">
+                    ${note.text}
+                </div>
+            </div>
+            
+            <div class="flex justify-between items-end mt-3 pt-2 border-t border-black/5">
+                <span class="text-[11px] uppercase opacity-40 font-bold tracking-widest">${note.date}</span>
+                <div class="flex flex-col items-end">
+                    <span class="font-hand text-2xl text-rose-600/80">De: ${note.sender || 'Amor'}</span>
+                    <button onclick="deleteNote(${note.id})" class="text-rose-400 hover:text-rose-600 hover:scale-110 transition-transform mt-1 opacity-0 group-hover:opacity-100 duration-300">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        `;
 
         noteDiv.innerHTML = `
             <div class="h-full flex flex-col">
