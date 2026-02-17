@@ -90,4 +90,4 @@ async function deleteNote(id) {
 
 // Inicialização
 fetchNotes();
-setInterval(fetchNotes, 10000);
+setInterval(fetchNotes, 300000);
